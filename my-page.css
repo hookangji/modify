@@ -1,0 +1,360 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #ff4b4b;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    height: 90px; /* 고정 높이 */
+}
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+.tabs button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff6f6f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.tabs button.active {
+    background-color: #ff4b4b;
+}
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* chart-comment 전체 텍스트 색상 설정 */
+.chart-comment {
+    color: #ff4b4b; /* 빨간색 */
+    font-size: 35px !important; /* 글자 크기 */
+    font-weight: bold; /* 텍스트 굵게 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-top: 20px; /* 위아래 간격 */
+}
+
+/* 강조된 이모티콘과 텍스트 스타일 */
+.chart-comment strong {
+    font-size: 50px; /* 더 큰 글자 크기 */
+    line-height: 1.2; /* 이모지가 위아래로 정렬될 때 간격 조정 */
+    text-shadow: 0 10px 10px #ff4b4b;
+
+}
+
+/* 홈 버튼 스타일 */
+.home-button {
+    position: absolute; /* 헤더 우측 상단에 고정 */
+    top: 15px;
+    right: 15px;
+    text-decoration: none;
+    font-size: 24px;
+    color: white;
+    padding: 10px;
+    border-radius: 50%; /* 동그라미 모양 */
+    background-color: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+    border: 2px solid rgba(255, 255, 255, 0.6); /* 테두리 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: white; /* 호버 시 배경 변경 */
+    color: #ff4b4b; /* 아이콘 색상 변경 */
+    transform: scale(1.1); /* 크기 확대 */
+}
+
+/* Statistics 섹션 */
+#statistics {
+    padding: 30px;
+    background-color: #fffafa; /* 부드러운 핑크톤 */
+    border-radius: 15px; /* 모서리 둥글게 */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* 섹션 그림자 */
+    margin: 20px auto;
+}
+
+/* 섹션 제목 */
+#statistics h2 {
+    font-size: 28px; /* 제목 크기 */
+    font-weight: bold;
+    color: #000000; /* 텍스트 색상 */
+    padding: 15px;
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(255, 75, 75, 0.4); /* 제목 그림자 */
+}
+
+/* 차트 및 코멘트 컨테이너 */
+#statistics .chart-container {
+    padding: 20px;
+    background-color: #fff; /* 흰색 배경 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
+}
+
+/* 차트 아래 코멘트 스타일 */
+#statistics .chart-comment {
+    font-size: 18px; /* 글자 크기 */
+    font-weight: bold;
+    color: #ff4b4b; /* 강조 색상 */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 비어 있는 상태 메시지 */
+#statistics p.no-statistics {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #aaa;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 빈 메시지 박스 그림자 */
+}
+
+/* 연도와 월 선택 드롭다운 스타일 */
+#year-select, #month-select {
+    font-size: 18px; /* 글씨 크기 */
+    padding: 10px; /* 내부 여백 */
+    margin: 10px; /* 위아래 간격 */
+    border: 2px solid #ff4b4b; /* 테두리 색상 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 글씨 색상 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 약간의 그림자 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#year-select:hover, #month-select:hover {
+    border-color: #ff6f6f; /* 호버 시 테두리 색상 변경 */
+    box-shadow: 0 4px 6px rgba(255, 75, 75, 0.4); /* 호버 시 그림자 강조 */
+}
+
+#year-select:focus, #month-select:focus {
+    border-color: #ff4b4b; /* 포커스 시 테두리 강조 */
+    outline: none; /* 기본 포커스 테두리 제거 */
+}
+
+#reminder h2 {
+    font-size: 28px; /* 제목 크기 */
+    font-weight: bold;
+    color: rgb(0, 0, 0); /* 글자 색상 */
+    padding: 15px;
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+#reminder h3 {
+    font-size: 20px; /* 제목 크기 */
+    font-weight: bold;
+    color: rgb(0, 0, 0); /* 글자 색상 */
+    padding: 15px;
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-bottom: 20px;
+}
+/* 리마인드 섹션 */
+#reminder {
+    padding: 30px;
+    background-color: #fffafa; /* 부드러운 핑크톤 */
+    border-radius: 15px; /* 모서리 둥글게 */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* 섹션 그림자 */
+    margin: 20px auto;
+}
+
+/* 게시물 리스트 스타일 */
+#reminder ul {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin: 0;
+    display: grid; /* 그리드 레이아웃 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 반응형 카드 */
+    gap: 20px; /* 카드 간격 */
+}
+
+/* 게시물 카드 */
+#reminder li {
+    background: linear-gradient(135deg, #ffe5e5, #fff); /* 그라데이션 배경 */
+    padding: 20px;
+    border-radius: 12px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 호버 효과 */
+}
+
+/* 카드 호버 효과 */
+#reminder li:hover {
+    transform: translateY(-5px); /* 살짝 올라감 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
+}
+
+/* 카드 제목 */
+#reminder li strong {
+    font-size: 30px;
+    color: #fefefe;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4), 0 0 5px rgba(255, 75, 75, 0.4);
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 카드 아티스트 */
+#reminder li span {
+    font-size: 25px;
+    color: #800020; /* 텍스트 색상 */
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* 카드 설명 */
+#reminder li p {
+    font-size: 20px;
+    color: #666; /* 설명 텍스트 */
+    line-height: 1.6; /* 가독성 향상 */
+    margin-top: 10px;
+}
+
+/* 비어 있는 상태 메시지 */
+#reminder p.no-memories {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #aaa;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 빈 메시지 박스 그림자 */
+}
+
+
+#reminder em {
+    font-size: 1.5rem; /* 제목 크기 키우기 */
+    font-weight: bold; /* 볼드체 */
+    color: #800020; /* 색상 */
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+#favorites h2 {
+    font-size: 28px; /* 제목 크기 */
+    font-weight: bold;
+    color: rgb(0, 0, 0); /* 글자 색상 */
+    padding: 15px;
+    border-radius: 10px; /* 모서리 둥글게 */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+/* Unforgettable Moment 섹션 */
+#favorites {
+    padding: 20px;
+    background-color: #fffafa; /* 부드러운 배경색 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 섹션 그림자 */
+    margin: 20px auto;
+}
+
+/* 게시물 리스트 스타일 */
+#favorites ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 반응형 그리드 */
+    gap: 20px; /* 카드 간격 */
+}
+
+/* 게시물 카드 */
+#favorites li {
+    background: linear-gradient(135deg, #ffe5e5, #fff); /* 그라데이션 배경 */
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* 호버 효과 */
+}
+
+/* 카드 호버 효과 */
+#favorites li:hover {
+    transform: translateY(-5px); /* 위로 살짝 올라감 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 강조 */
+}
+
+/* 카드 제목 */
+#favorites li strong {
+    font-size: 25px;
+    color: #800020; /* 강조 색상 */
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 카드 아티스트 */
+#favorites li p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5; /* 가독성 향상 */
+}
+
+/* 비어 있는 상태 메시지 */
+#favorites p {
+    text-align: center;
+    font-size: 16px;
+    color: #888;
+    margin-top: 20px;
+}
+
+/* "No unforgettable moments" 메시지 스타일 */
+#favorites p.no-moments {
+    font-size: 18px;
+    font-weight: bold;
+    color: #aaa;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 날짜와 기분 이모티콘 스타일 */
+.post-meta {
+    color: #333; /* 글씨 색상 */
+    margin-top: 10px; /* 위쪽 여백 */
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    gap: 10px; /* 날짜와 이모티콘 사이 간격 */
+}
+
+.post-meta .post-date {
+    font-size: 20px; /* 날짜 글씨 크기 */
+    color: #555; /* 날짜 색상 */
+}
+
+.post-meta .post-mood {
+    font-size: 50px; /* 기분 이모티콘 크기 */
+    line-height: 1; /* 줄 간격 조정 */
+}
+
+.post-description {
+    font-size: 18px !important; /* 원하는 글자 크기 */
+    line-height: 1.6; /* 줄 간격 */
+    color: #333; /* 글자 색상 */
+    text-align: left !important; /* 텍스트 왼쪽 정렬 */
+}

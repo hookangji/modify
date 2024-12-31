@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <style>
+        /* 공통 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            height: 100vh; /* 화면 전체 높이 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main {
+            max-width: 400px;
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center; /* 세로 가운데 정렬 */
+            gap: 10px; /* 레이블과 입력 필드 간격 */
+        }
+
+        label {
+            font-weight: bold;
+            width: 100px; /* 레이블 고정 너비 */
+            text-align: right; /* 레이블 텍스트 오른쪽 정렬 */
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%; /* 입력 필드가 가변적으로 조정됨 */
+            max-width: 200px; /* 입력 필드 최대 너비 */
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #ff4b4b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* 버튼 너비 조정 */
+            max-width: 300px; /* 버튼 최대 너비 */
+            margin-top: 10px;
+            text-align: center; /* 텍스트 가운데 정렬 */
+            align-self: center; /* 버튼을 폼의 가운데 정렬 */
+        }
+
+        button:hover {
+            background-color: #830000;
+        }
+
+        .signup-link {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            text-decoration: none;
+            color: #ff4b4b;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form action="login.php" method="POST">
+            <div class="form-group">
+                <label for="ID">ID</label>
+                <input type="text" id="ID" name="ID" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Log In</button>
+            <div class="signup-link">
+                Don't you have an account? <a href="signup.html">Sign up</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

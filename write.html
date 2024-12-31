@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>write</title>
+    <link rel="stylesheet" href="write-style.css">
+</head>
+<body>
+
+    <!-- 게시글 작성 폼 -->
+    <main>
+        <form id="post-form" action="write.php" method="POST">
+            <div id="mood-selector">
+                <button class="mood-icon" data-mood="love">🥰</button>
+                <button class="mood-icon" data-mood="happy">😊</button>
+                <button class="mood-icon" data-mood="sad">😢</button>
+                <button class="mood-icon" data-mood="angry">😡</button>
+                <button class="mood-icon" data-mood="neutral">😐</button>
+            </div>
+            <input type="hidden" id="selected-mood" name="mood" value="neutral">
+            <!-- 날짜 선택 -->
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+        
+            <!-- 시간 선택 -->
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+        
+            <!-- 가수 입력 -->
+            <div class="form-group">
+                <label for="artist">Artist</label>
+                <input type="text" id="artist" name="artist" required>
+            </div>
+        
+            <!-- 곡 제목 입력 -->
+            <div class="form-group">
+                <label for="song-title">Song Title</label>
+                <input type="text" id="song-title" name="song-title" required>
+            </div>
+        
+            <!-- 상세 설명 입력 -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+            </div>
+        
+            <!-- 작성 버튼 -->
+            <button type="submit" id="submit-button">Write</button>
+
+
+
+        </form>
+    </main>
+</body>
+</html>
+
+<script>
+    // 모든 기분 아이콘 버튼에 클릭 이벤트 추가
+    document.querySelectorAll('.mood-icon').forEach(icon => {
+        icon.addEventListener('click', function(event) {
+            event.preventDefault(); // 버튼 기본 동작 방지 (폼 제출 방지)
+            
+            // 모든 아이콘에서 선택 상태 제거
+            document.querySelectorAll('.mood-icon').forEach(el => el.classList.remove('selected'));
+
+            // 클릭된 아이콘에 선택 상태 추가
+            this.classList.add('selected');
+
+            // 숨겨진 input 필드에 선택된 mood 값 설정
+            const selectedMood = this.getAttribute('data-mood');
+            document.getElementById('selected-mood').value = selectedMood;
+        });
+    });
+</script>

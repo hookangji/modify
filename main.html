@@ -1,0 +1,108 @@
+<?php
+session_start(); // 세션 시작, 로그인 상태와 사용자 정보를 유지하기 위함
+
+// 브라우저 캐시를 비활성화하여 항상 최신 데이터를 표시
+header("Cache-Control: no-cache, must-revalidate"); 
+header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
+
+// JSON 파일 경로 설정
+$jsonFile = 'posts.json';
+
+// JSON 데이터 읽기 및 배열로 변환
+$posts = []; // 게시물 데이터를 저장할 기본 배열
+if (file_exists($jsonFile)) { // JSON 파일이 존재하는지 확인
+    $fileContents = file_get_contents($jsonFile); // 파일 내용 읽기
+    if (!empty($fileContents)) { // 파일 내용이 비어 있지 않은지 확인
+        $posts = json_decode($fileContents, true); // JSON 데이터를 PHP 배열로 변환
+    }
+}
+
+// 현재 로그인한 사용자 ID 가져오기
+$currentUser = $_SESSION['userID'] ?? null; // 세션에서 사용자 ID 가져오기 (로그인되지 않은 경우 null)
+
+// 로그인된 사용자의 게시물만 필터링
+$userPosts = []; // 사용자의 게시물을 저장할 배열 초기화
+if ($currentUser) { // 사용자가 로그인된 경우
+    $userPosts = array_filter($posts, function ($post) use ($currentUser) {
+        // 게시물의 userID가 현재 로그인된 사용자와 일치하는 경우만 반환
+        return isset($post['userID']) && $post['userID'] === $currentUser;
+    });
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- 문서 인코딩 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 디자인 지원 -->
+    <title>Home</title> <!-- 페이지 제목 -->
+    <link rel="stylesheet" href="style.css"> <!-- 외부 CSS 파일 연결 -->
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-left">
+            <!-- Moodify 로고 텍스트 -->
+            <a href="main.html" class="logo">Moodify</a> <!-- 로고를 클릭하면 메인 페이지로 이동 -->
+        </div>
+        <div class="header-right">
+            <?php if ($currentUser): ?> <!-- 로그인 상태 확인 -->
+                <a href="my-page.php" class="my-page">My page</a> <!-- 마이페이지로 이동 -->
+                <a href="logout.php">
+                    <button>Log out</button> <!-- 로그아웃 버튼 -->
+                </a>
+            <?php else: ?>
+                <a href="login.html">
+                    <button>Log in</button> <!-- 로그인 버튼 -->
+                </a>
+            <?php endif; ?>
+        </div>
+    </header>
+
+    <!-- 메인 섹션 -->
+    <main>
+        <section id="posts">
+            <?php if ($currentUser): ?> <!-- 로그인된 경우 -->
+                <h2>Your Posts</h2> <!-- 사용자 게시물 섹션 제목 -->
+                <div class="post-list">
+                    <?php if (!empty($userPosts)): ?> <!-- 사용자의 게시물이 존재하는지 확인 -->
+                        <?php foreach ($userPosts as $index => $post): ?> <!-- 게시물 순회 -->
+                            <div class="post-item">
+                                <div class="mood-icon">
+                                    <?php
+                                    // 감정 아이콘 매핑
+                                    $moodIcons = [
+                                        'love' => '🥰',
+                                        'happy' => '😊',
+                                        'sad' => '😢',
+                                        'angry' => '😡',
+                                        'neutral' => '😐'
+                                    ];
+                                    // 게시물의 mood에 해당하는 아이콘 출력, 없으면 기본값으로 ❓ 표시
+                                    echo $moodIcons[$post['mood']] ?? '❓';
+                                    ?>
+                                </div>
+                                <a href="post-detail.php?id=<?php echo $index; ?>"> <!-- 게시물 상세 페이지 링크 -->
+                                    <h3><?php echo htmlspecialchars($post['date'] . ' ' . $post['time']); ?></h3> <!-- 게시물 날짜와 시간 -->
+                                    <p><strong>Artist:</strong> <?php echo htmlspecialchars($post['artist']); ?></p> <!-- 아티스트 이름 -->
+                                    <p><strong>Song Title:</strong> <?php echo htmlspecialchars($post['songTitle']); ?></p> <!-- 노래 제목 -->
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>You have no posts yet. Write your first memory!</p> <!-- 게시물이 없을 경우 메시지 표시 -->
+                    <?php endif; ?>
+                </div>
+            <?php else: ?> <!-- 로그인되지 않은 경우 -->
+                <h2>Welcome to Moodify!</h2> <!-- 환영 메시지 -->
+                <p class="welcome-message">Log in to record memories and to see personalized content.</p>
+            <?php endif; ?>
+        </section>
+
+        <?php if ($currentUser): ?> <!-- 로그인된 사용자만 글쓰기 버튼 표시 -->
+            <a href="write.html">
+                <button id="write-post-button">Record</button> <!-- 글쓰기 버튼 -->
+            </a>
+        <?php endif; ?>
+    </main>
+</body>
+</html>
